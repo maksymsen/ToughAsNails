@@ -102,6 +102,14 @@ public class ThirstHandler extends StatHandlerBase implements IThirst
     
     private void applyMovementExhaustion(EntityPlayer player, int distance)
     {
+    	// We can't detect direct phase changes, even cross-dim it's purely distance based
+	// So we nullify the whole damn thing and pray for the best
+	// 500 is usually the approx. distance between dim 0 and dim -1
+    	
+	if (distance > 500) {
+		return;
+	}
+	
         if (player.isInsideOfMaterial(Material.WATER))
         {
             this.addExhaustion(0.015F * (float)distance * 0.01F);
